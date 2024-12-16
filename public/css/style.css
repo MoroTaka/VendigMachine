@@ -1,0 +1,422 @@
+@charset "UTF-8";
+
+body{
+    max-width:1200px;
+    text-align: center;
+    margin: 0 auto;
+    font-family: "Zen Kaku Gothic New", sans-serif;
+    }
+
+h1{
+    font-size: 30px;
+}
+
+.Content_All{
+    display: inline-block;
+    margin:50px auto 0;
+}
+
+
+.Midashi{
+    text-align: left;
+    margin-bottom: 70px;
+}
+
+
+/*  ログイン画面　*/
+
+.loginScreen{
+        margin-top: 200px;
+}
+#loginWrite{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[name="password"],
+input[name="email"]{
+    border: 1px solid #080808;
+    margin-top: 50px;
+    width: 500px;
+    height: 40px;
+    padding-left: 30px;
+}
+
+input[name="password"]{
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+::placeholder{
+    color:black;
+    font-size: 20px;
+}
+
+#loginBtn{
+    display: flex;
+    justify-content:space-between;
+    max-width: 400px;
+    margin: 40px auto 0px;
+    align-items: center;
+}
+
+#newBtn{
+    margin-right: 100px;
+    width: 200px;
+    height: 30px;
+    background-color: #f5a500;
+    border-radius: 50px;
+}
+
+#login{
+    width: 200px;
+    height: 30px;
+    background-color: #00aaff;
+    border-radius: 50px;
+    
+}
+
+.btn{
+    font-size: 1em;
+    padding:5px;
+    line-height:1.2;
+
+}
+
+/* 商品一覧画面　*/
+
+#ItiranSearchBox{
+    display: flex;
+}
+
+#ItiranSearch{
+    margin-right: 50px;
+}
+
+#ItiranSelect{
+    margin-right: 50px;
+    position: relative;
+}
+
+#ItiranSelect::after{
+    content:"";
+    border-bottom:1.2px solid black;
+    border-right:1.2px solid black;
+    transform: rotate(45deg);
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    top:15px;
+    right: 12px;
+}
+
+
+input[type=search]{
+    border:1px solid #dddddd;
+    border-radius: 5px;
+    width: 250px;
+    height: 40px;
+    padding-left: 10px;
+}
+
+input::placeholder{
+    font-size: 14px;
+}
+
+input::-webkit-input-placeholder{
+    position: relative;
+    top:-1px
+}
+
+select[name=categori]{
+    border:1px solid #dddddd;
+    border-radius: 5px;
+    width: 250px;
+    height: 40px;
+    padding-left: 10px;
+}
+
+option{
+    color:#080808;
+}
+
+#SearchBtn{
+    border:1px solid #dddddd;
+    border-radius: 5px;
+    width: 70px;
+    height: 40px;
+}
+
+#ItiranSelectItem{
+    font-size: 14px;
+}
+
+#ItiranTable{
+    margin-top: 30px;
+}
+
+table{
+    border: 1.5px solid gray;
+    border-collapse: collapse; 
+}
+
+th,
+td{
+    border: 1.5px solid gray;
+    border-right: none;
+    border-left:none;
+    height: 60px;
+    text-align: center;
+}
+
+th{
+    font-weight:bolder;
+    text-align: center;
+}
+
+tbody #ItiranContent:nth-of-type(2n-1) td{
+    background-color:#dddddd;
+}
+
+
+/*　一覧画面のテーブルの内容*/
+#ItiranTable{
+    width:710px;
+}
+
+#Id{
+    width: 50px;
+}
+
+#CommodityImg{
+    width: 100px;
+}
+
+#CommodityName{
+    width: 120px;
+}
+
+#price{
+    text-align: left;
+    width: 70px;
+    padding-left: 5px;
+}
+
+#itemSprice{
+    text-align: left;
+}
+
+#Stock{
+    width: 70px;
+}
+
+#itemStock{
+    text-align: left;
+    padding-left: 10px;
+}
+
+#CompanyName{
+    width: 140px;
+}
+
+#ItiranNewBtn{
+    background-color: #f0821e;
+    border-radius: 3px;
+    font-size: 12px;
+    width: 70px;
+    height: 30px;
+}
+
+.Itiran_Btns{
+  width: 80px;
+}
+
+
+#ItiranContentBtn{
+    background-color: #00aaff;
+    font-size: 12px;
+    width: 60px;
+    height: 25px;
+    border-radius: 3px;
+}
+
+#ItiranDeleteBtn{
+    font-size: 12px;
+    background-color:red;
+    color:white;
+    width: 60px;
+    height: 25px;
+    border-radius: 3px;
+}
+
+/* 商品情報詳細　*/
+
+#All{
+    border: 1px solid black;
+    width: 450px;
+    height: 550px;
+}
+
+#ProductContent{
+    border: none;
+    margin-top: 20px;
+}
+
+#ProductContent tr{
+    display: flex;
+    
+}
+
+#ProductContent td{
+    text-align: left;
+    display: inline-block;
+    border: none;
+    margin-left: 70px;
+    width: 200px;
+}
+
+#ProductContent th{
+    text-align: left;
+    display: inline-block;
+    font-weight: bold;
+    border: none;
+    width: 100px;
+    margin-left:50px;
+    font-size: 20px;
+}
+
+#ImgSpace{
+    border: 1px solid #dddddd;
+    width: 200px;
+    height: 40px;
+    padding: 3px;
+    font-size: 12px;
+}
+
+#CommentSpace { 
+    border: 1px solid #dddddd;
+    width: 200px;
+    height: 70px;
+    padding: 3px;
+    font-size: 12px;
+}
+
+.Product_Btn{
+    text-align: left;
+    display: flex;
+    margin-top: 40px;
+    margin-left: 50px;
+}
+
+.Product_Btn_Edit{
+    border: none;
+    background-color: #f0821e;
+    width: 65px;
+    height: 30px;
+    font-size: 12px;
+    border-radius: 3px;
+}
+
+.Product_Btn_Return
+{
+    border: none;
+    background-color:#00aaff;
+    width: 65px;
+    height: 30px;
+    font-size: 12px;
+    margin-left: 20px;
+    border-radius: 3px;
+}
+
+
+
+
+/* 商品新規登録画面　*/
+
+#ProductContentImg{
+    margin-top: 40px;
+}
+
+textarea{
+    resize: none;
+}
+
+.kisai_basho{
+    border: 1.5px solid #dddddd ;
+    border-radius: 3px;
+    width: 210px;
+    height: 27px;
+    padding-left: 10px;
+}
+
+#CommentSpace{
+    border: 1.5px solid #dddddd;
+    border-radius: 3px;
+    width: 210px;
+}
+
+#ImgFile{
+    display: none;
+}
+
+#ImgFileBtn{
+    display: block;
+    background: rgb(208, 206, 206);
+    width:150px;
+    height: 35px;
+    text-align: center;
+    padding-top: 5px;
+    border-radius: 3px;
+}
+
+#ProductSelect{
+    position: relative;
+}
+
+#ProductSelect::after{
+    content:"";
+    border-bottom:1.2px solid black;
+    border-right:1.2px solid black;
+    transform: rotate(45deg);
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    top:8px;
+    right: 4px;
+}
+
+#ProductContent th{
+    position: relative;
+}
+
+.asterisk{
+    position:absolute;
+    display: inline-block;
+    font-size: 12px;
+    color:red;
+    bottom:40px;
+    margin-left: 3px;
+    
+}
+
+
+
+/* 商品情報編集画面　*/
+
+#ProductBtn2{
+    text-align: left;
+    display: flex;
+    margin-top: 20px;
+    margin-left: 50px;
+}
+
+
+/*ページネーション*/
+
+#paginate{
+    display: flex;
+    margin-top: 20px;
+    justify-content: center;
+}
+
