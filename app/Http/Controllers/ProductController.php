@@ -65,7 +65,8 @@ class ProductController extends Controller
         $items =Product::Paginate(6);
         $category=Company::all();
         $keyword = $request->input('keyword');
-        $viewGo =['items' => $items, 'category' => $category ,'keyword' => $keyword];
+        $categoryword = $request->input('categori');
+        $viewGo =['items' => $items, 'category' => $category ,'keyword' => $keyword ,'categoryword' => $categoryword];
        return view('itiran.itiran', $viewGo);
     }
 

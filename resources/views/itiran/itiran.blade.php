@@ -20,9 +20,9 @@
 
                     <div id=ItiranSelect>
                         <select name="categori"  id='ItiranSelectItem' >
-                            <option value="" selected >メーカー名</option>
+                            <option value="" selected >メーカー名 </option>
                         @foreach($category as $category)
-                            <option value="{{$category->id}}" @if (old ('categori', $categoryword) == $category->id) selected @endif>{{$category->company_name}}</option>
+                            <option value="{{$category->id}}" @if(old('categori', $categoryword) == $category->id) selected @endif>{{$category->company_name}}</option>
                         @endforeach
                         </select>
                     </div>
@@ -61,7 +61,7 @@
                         <td id=itemSprice>￥{{$item->price}}</td>
                         <td id=itemStock>{{$item->stock}}</td>
                         <td>{{$item->Company->company_name}}</td>
-                        <form action="{{route('product.show', ['id' => $item->id])}}" method="get" >
+                        <form action="{{route('product.show' , ['id' => $item->id])}}" method="get" >
                         @csrf
                         <td class='Itiran_Btns' > 
                                 <input type="submit" value='詳細' id=ItiranContentBtn>
