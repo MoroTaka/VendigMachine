@@ -18,6 +18,8 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     // ログイン　//
     public function getLogin(Request $request) {
 
         return view('login.login');
@@ -41,6 +43,7 @@ class ProductController extends Controller
 
     }
 
+    // 新規登録ログイン　//
     public function newAccount(Request $request) {
 
         return view('login.new_login');
@@ -59,7 +62,7 @@ class ProductController extends Controller
     
 
 
-
+    //　一覧表示画面　　//
     public function index(Request $request) {
     
         $items =Product::Paginate(6);
@@ -69,7 +72,8 @@ class ProductController extends Controller
         $viewGo =['items' => $items, 'category' => $category ,'keyword' => $keyword ,'categoryword' => $categoryword];
        return view('itiran.itiran', $viewGo);
     }
-
+     
+    //　検索 //
     public function search(Request $request) {
 
         $category=Company::all();
@@ -90,6 +94,7 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    // 新規作成画面　//
     public function create(Request $request) {
         $items =Product::all();
         $category = Company::all();
@@ -103,6 +108,8 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+     // 新規作成項目追加 //
     public function store(Request $request) {
         $product = new Product;
         $product->product_name = $request->product_name;
@@ -121,6 +128,8 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     // 詳細画面 //
     public function show($id) {
       $items = Product::find($id);
       return view('detail.detail', ['items'=>$items]);
@@ -132,6 +141,8 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     // 編集画面 //
     public function edit($id) {
        $category = Company::all();
        $items = Product::find($id);
@@ -146,6 +157,8 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     // 更新 //
     public function update(Request $request ) {
         $items = Product::where('id', '=', $request -> id);
         $items -> update([
@@ -165,6 +178,8 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+     // 削除 //
     public function destroy($id) {
         $product = Product::find($id);
         $product->delete();
