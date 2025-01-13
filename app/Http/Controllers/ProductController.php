@@ -9,6 +9,8 @@ use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+
 
 
 class ProductController extends Controller
@@ -52,10 +54,24 @@ class ProductController extends Controller
 
     public function newAccountAdd(Request $request) {
 
-        $user = new User();
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();
+
+
+        try {
+               DB::beginTransaction();
+
+                $user = new User();
+                $user->email = $request->email;
+                $user->password = Hash::make($request->password);
+                $user->save();
+
+               DB::commit();
+
+        } catch (\Exception $e) {
+
+               DB::rollback();
+
+        }
+
         return redirect('/');
 
     }
@@ -64,28 +80,30 @@ class ProductController extends Controller
 
     //　一覧表示画面　　//
     public function index(Request $request) {
-    
-        $items =Product::Paginate(6);
-        $category=Company::all();
+
+        
+        
+        $objectPro = new Product;
+        $items = $objectPro->getProDate();
+        $category = $objectPro->getComDate();
+
         $keyword = $request->input('keyword');
         $categoryword = $request->input('categori');
-        $viewGo =['items' => $items, 'category' => $category ,'keyword' => $keyword ,'categoryword' => $categoryword];
-       return view('itiran.itiran', $viewGo);
+        
+       return view('itiran.itiran', compact('items','category','keyword','categoryword'));
     }
      
     //　検索 //
     public function search(Request $request) {
 
-        $category=Company::all();
+        $objectPro = new Product;
+        $category = $objectPro->getComDate(); 
+        $items = $objectPro->getSarDate($request->keyword, $request->categori); 
 
         $keyword = $request->input('keyword');
         $categoryword = $request->input('categori');
-
-        $items =Product::KeyWord($request->keyword)->Category($request->categori)->Paginate(6);
         
-
-        $viewGo =['items' => $items, 'category' => $category ,'keyword' => $keyword, 'categoryword' => $categoryword];
-        return view('itiran.itiran', $viewGo);
+        return view('itiran.itiran', compact('items','category','keyword','categoryword'));
     }
     
 
@@ -96,10 +114,12 @@ class ProductController extends Controller
      */
     // 新規作成画面　//
     public function create(Request $request) {
-        $items =Product::all();
-        $category = Company::all();
-        $viewGo =['items' => $items, 'category' => $category];
-        return view('add.add', $viewGo);
+
+        $objectPro = new Product;
+        $items = $objectPro->getProDate();
+        $category = $objectPro->getComDate();
+
+        return view('add.add', compact('items','category'));
     }
 
     /**
@@ -111,15 +131,29 @@ class ProductController extends Controller
 
      // 新規作成項目追加 //
     public function store(Request $request) {
-        $product = new Product;
-        $product->product_name = $request->product_name;
-        $product->company_id = $request->company_name;
-        $product->price = $request->price;
-        $product->stock = $request->stock;
-        $product->comment =$request->comment;
-        $product->img_path = $request->product_img;
-        $product->save();
-        return redirect('/create');
+
+
+        
+        try {
+
+            DB::beginTransaction();
+
+                $product = new Product;
+                $product->product_name = $request->product_name;
+                $product->company_id = $request->company_name;
+                $product->price = $request->price;
+                $product->stock = $request->stock;
+                $product->comment =$request->comment;
+                $product->img_path = $request->product_img;
+                $product->save();
+        
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
+
+             return redirect('/create');
     }
 
     /**
@@ -131,8 +165,11 @@ class ProductController extends Controller
 
      // 詳細画面 //
     public function show($id) {
-      $items = Product::find($id);
-      return view('detail.detail', ['items'=>$items]);
+
+      $objectPro = new Product;
+      $items = $objectPro->getFinDate($id);
+
+      return view('detail.detail', compact('items'));
     }
 
     /**
@@ -144,10 +181,13 @@ class ProductController extends Controller
 
      // 編集画面 //
     public function edit($id) {
-       $category = Company::all();
-       $items = Product::find($id);
-       $viewGo =['items' => $items, 'category' => $category];
-       return view('edit.edit', $viewGo);
+
+       $objectPro = new Product;
+       $category = $objectPro->getComDate();
+       $items = $objectPro->getFinDate($id);
+
+
+       return view('edit.edit', compact('items','category'));
     }
 
     /**
@@ -160,16 +200,33 @@ class ProductController extends Controller
 
      // 更新 //
     public function update(Request $request ) {
-        $items = Product::where('id', '=', $request -> id);
-        $items -> update([
-            'product_name' => $request -> product_name,
-            'company_id' => $request -> company_name,
-            'price' => $request -> price,
-            'stock' => $request -> stock,
-            'comment' => $request -> comment,
-            'img_path' => $request -> product_img,
-        ]);
+
+        $objectPro = new Product;
+        $items = $objectPro->getFinDate($request -> id);
+
+
+        try {
+
+            DB::beginTransaction();
+
+                $items -> update([
+                    'product_name' => $request -> product_name,
+                    'company_id' => $request -> company_name,
+                    'price' => $request -> price,
+                    'stock' => $request -> stock,
+                    'comment' => $request -> comment,
+                    'img_path' => $request -> product_img,
+
+                ]);
+                
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+        }
+
         return redirect()->route('product.edit' , ['id' => $request -> id]);
+
     }
 
     /**
@@ -181,8 +238,22 @@ class ProductController extends Controller
 
      // 削除 //
     public function destroy($id) {
-        $product = Product::find($id);
-        $product->delete();
+        
+        $objectPro = new Product;
+        $items = $objectPro->getFinDate($id);
+
+        try {
+
+            DB::beginTransaction();
+
+                $items->delete();
+                
+            DB::commit();
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+        }
+
         return redirect('/index');
     }
 }
